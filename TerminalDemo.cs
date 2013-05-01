@@ -69,7 +69,7 @@ namespace Telnet.Demo
 		private static void DemoRH73TelnetServer(string[] args)
 		{
 			string f = null;
-			Terminal tn = new Terminal("192.168.2.108", 23, 10, 80, 40); // hostname, port, timeout [s], width, height
+			Terminal tn = new Terminal("cnshaxem01", 23, 50, 80, 40); // hostname, port, timeout [s], width, height
 			tn.Connect(); // physcial connection
 			do 
 			{
@@ -90,10 +90,8 @@ namespace Telnet.Demo
                 f = tn.WaitForString("$");			// bash
                 if (f == null)
                     break;
-                tn.SendResponse("~/test/fpga_config.sh ~/test/fpga.rbf", true);		// send Shell command
-                f = tn.WaitForString("$");			// bash
-                if (f == null)
-                    break;
+                tn.SendResponse("~/test/thermal", true);		// send Shell command
+                while (tn.WaitForString("$") == null);			// bash
                 //tn.SendResponse("\003", true);	
                 if (tn.WaitForChangedScreen())
                     Console.WriteLine(tn.VirtualScreen.Hardcopy().TrimEnd());
