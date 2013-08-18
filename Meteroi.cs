@@ -58,9 +58,78 @@ namespace Meteroi
             }
             return shell.VirtualScreen.Hardcopy().TrimEnd();
         }
+
         ~broad()
         { 
             
         }
     }
+
+    class PCAS
+    {
+
+//shell_cmd_func_t shell_cmd_func_list[] = {
+//    {"help",      "Print Help Manual",                 cli_help},
+//    {"temp",      "show the temperature",              show_temperature},
+//    {"moist",     "show the moisture",                 show_moisture},
+//    {"tempt",     "Set the target temperature",        set_temperature},
+//    {"moistt",    "Set the target temperature",        set_moisture},
+//    {"scope",     "set the coordinates of the micro scope",set_microscop_position},
+//    {"manual",    "Manual regulate the micro scope",   manual_calibration},
+//    {"x",         "regular x of micro scope",          microscop_x},
+//    {"y",         "regular y of micro scope",          microscop_y},
+//    {"z",         "regular z of micro scope",          microscop_z},
+//    {"move",      "Move to the sample",                microscop_move},
+//    {"ref",       "set the reference point of micro scope", microscop_ref},
+//    {"syf",       "syringe run forward",               syringe_plus},
+//    {"syb",       "syringe run back",                  syringe_minus},
+//    {"led",       "LED light",                         led},
+//    {"ut",        "Unit test of the system",           unit_test},
+//    {NULL, NULL, NULL}
+//};
+
+        public float get_box_temperature()
+        {
+            return 0;
+        }
+        public float get_box_moisture()
+        {
+            return 0;
+        }
+        public float get_chip_temperature()
+        {
+            return 0;
+        }
+        public float get_chip_moisture()
+        {
+            return 0;
+        }
+        public void set_target_temperature(float target)
+        {
+            return;
+        }
+        public void set_target_moisture(float target)
+        {
+            return;
+        }
+
+        public void microscope_x(int x)
+        {
+            return;
+        }
+        public void micoscope_y(int y)
+        {
+            return;
+        }
+        public void micoscope_z(int z)
+        {
+            return;
+        }
+
+        public void move_to_sample(uint i)
+        {
+        
+        }
+    }
+
 }
