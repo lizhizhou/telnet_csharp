@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Telnet;
+using Meteroi;
+using System.Text.RegularExpressions;
 
 namespace Meteroi
 {
@@ -17,7 +19,7 @@ namespace Meteroi
         {
             connect_state = true;
         }
-        broad(string broad_address, string login_name, string login_pwd, string program)
+        public broad(string broad_address, string login_name, string login_pwd, string program)
         {
             string f;
             shell = new Terminal(broad_address);
@@ -36,7 +38,7 @@ namespace Meteroi
                 if (f == null) 
 				    break;
                 shell.SendResponse(program, true);	// send password 
-                f = shell.WaitForString(">");			// program shell
+                f = shell.WaitForString("Meteroi shell>");			// program shell
                 if (f == null)
                     break;
                 change_state_to_connect();
@@ -50,14 +52,17 @@ namespace Meteroi
         public string send_command_get_response(string command)
         {
             string f;
+            shell.VirtualScreen.CleanScreen(); 
             shell.SendResponse(command, true);	// send password 
-            f = shell.WaitForString(">");			   // program shell
+            f = shell.WaitForString("Meteroi shell>");			   // program shell
             if (f == null) {
                 change_state_to_disconnect();
                 return null;
             }
             return shell.VirtualScreen.Hardcopy().TrimEnd();
         }
+
+                 
 
         ~broad()
         { 
@@ -67,7 +72,18 @@ namespace Meteroi
 
     class PCAS
     {
-
+        static broad b;
+        static void Main(string[] args)
+        {
+            b = new broad("10.235.6.197", "lophilo", "lab123", "~/test/thermal");
+            b.send_command_get_response("x 100");
+            b.send_command_get_response("x -100");
+            while (true)
+            {
+                Console.WriteLine(get_box_temperature());
+                Console.WriteLine(get_box_moisture());
+            }
+        }
 //shell_cmd_func_t shell_cmd_func_list[] = {
 //    {"help",      "Print Help Manual",                 cli_help},
 //    {"temp",      "show the temperature",              show_temperature},
@@ -88,20 +104,44 @@ namespace Meteroi
 //    {NULL, NULL, NULL}
 //};
 
-        public float get_box_temperature()
+        public static float get_box_temperature()
         {
-            return 0;
+            string regexStr = @"[-+]?\b(?:[0-9]*\.)?[0-9]+\b";
+            string response;
+            float resualt;
+            response = b.send_command_get_response("temp 1");
+            MatchCollection mc = Regex.Matches(response, regexStr);
+            resualt = float.Parse(mc[1].Value);
+            return resualt;
         }
-        public float get_box_moisture()
+        public static float get_box_moisture()
         {
-            return 0;
+            string regexStr = @"[-+]?\b(?:[0-9]*\.)?[0-9]+\b";
+            string response;
+            float resualt;
+            response = b.send_command_get_response("moist 1");
+            MatchCollection mc = Regex.Matches(response, regexStr);
+            resualt = float.Parse(mc[1].Value);
+            return resualt;
         }
         public float get_chip_temperature()
         {
-            return 0;
+            string regexStr = @"[-+]?\b(?:[0-9]*\.)?[0-9]+\b";
+            string response;
+            float resualt;
+            response = b.send_command_get_response("temp 2");
+            MatchCollection mc = Regex.Matches(response, regexStr);
+            resualt = float.Parse(mc[1].Value);
+            return resualt;
         }
         public float get_chip_moisture()
         {
+            string regexStr = @"[-+]?\b(?:[0-9]*\.)?[0-9]+\b";
+            string response;
+            float resualt;
+            response = b.send_command_get_response("moist 2");
+            MatchCollection mc = Regex.Matches(response, regexStr);
+            resualt = float.Parse(mc[1].Value);
             return 0;
         }
         public void set_target_temperature(float target)

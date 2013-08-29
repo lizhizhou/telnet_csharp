@@ -23,7 +23,7 @@
     <DelaySign>false</DelaySign>
     <OutputType>Exe</OutputType>
     <RootNamespace>Meteroi</RootNamespace>
-    <StartupObject>Telnet.Demo.TerminalDemo</StartupObject>
+    <StartupObject>Meteroi.PCAS</StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>

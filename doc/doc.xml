@@ -12,15 +12,10 @@
             </p>
             </summary>
         </member>
-        <member name="M:Telnet.Demo.TerminalDemo.Main(System.String[])">
+        <member name="M:Telnet.Demo.TerminalDemo.DemoMSTelnetServer(System.String[])">
             <summary>
             The main entry point for the application.
             Can be used to test the programm and run it from command line.
-            </summary>
-        </member>
-        <member name="M:Telnet.Demo.TerminalDemo.DemoMSTelnetServer(System.String[])">
-            <summary>
-            Demo for a MS Telnet server
             </summary>
         </member>
         <member name="M:Telnet.Demo.TerminalDemo.DemoRH73TelnetServer(System.String[])">
