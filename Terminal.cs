@@ -150,7 +150,8 @@ namespace Telnet
 		const String F11 = "\033[23~";
 		const String F12 = "\033[24~";
 
-		const string ENDOFLINE = "\r\n"; // CR LF
+		//const string ENDOFLINE = "\r\n"; // CR LF for windows
+        const string ENDOFLINE = "\r";     // CR  for linux
 		const int SCREENXNULLCOORDINATE = 0;
 		const int SCREENYNULLCOORDINATE = 0;
 		const int TRAILS = 25; // trails until timeout in "wait"-methods

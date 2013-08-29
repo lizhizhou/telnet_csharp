@@ -151,7 +151,7 @@ namespace Telnet
 		/// </summary>
 		public void CursorNextLine() 
 		{
-			this.Write("\n\r");
+			this.Write("\r");
 		}
 
 		/// <summary>

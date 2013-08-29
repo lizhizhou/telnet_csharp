@@ -69,16 +69,16 @@ namespace Telnet.Demo
 		private static void DemoRH73TelnetServer(string[] args)
 		{
 			string f = null;
-			Terminal tn = new Terminal("cnshaxem01", 23, 50, 80, 40); // hostname, port, timeout [s], width, height
+            Terminal tn = new Terminal("10.235.6.197", 23, 50, 80, 40); // hostname, port, timeout [s], width, height
 			tn.Connect(); // physcial connection
 			do 
 			{
-				f = tn.WaitForString("Login");
+				f = tn.WaitForString("login");
 				if (f==null) 
 					break; // this little clumsy line is better to watch in the debugger
 				Console.WriteLine(tn.VirtualScreen.Hardcopy().TrimEnd());
 				tn.SendResponse("lophilo", true);	// send username
-				f = tn.WaitForString("Password");
+				f = tn.WaitForString("Password:");
 				if (f==null) 
 					break;
 				Console.WriteLine(tn.VirtualScreen.Hardcopy().TrimEnd());
@@ -86,13 +86,30 @@ namespace Telnet.Demo
 				f = tn.WaitForString("$");			// bash
 				if (f==null) 
 					break;
-				tn.SendResponse("df", true);		// send Shell command
-                f = tn.WaitForString("$");			// bash
+                Console.WriteLine(tn.VirtualScreen.Hardcopy().TrimEnd());
+                tn.SendResponse("~/test/thermal", true);		// send Shell command
+                f = tn.WaitForString("Meteroi shell>");			// program
                 if (f == null)
                     break;
-                tn.SendResponse("~/test/thermal", true);		// send Shell command
-                while (tn.WaitForString("$") == null);			// bash
-                //tn.SendResponse("\003", true);	
+                Console.WriteLine(tn.VirtualScreen.Hardcopy().TrimEnd());
+                tn.VirtualScreen.CleanScreen(); 
+                tn.SendResponse("x -1000", true);		// send Shell command
+                f = tn.WaitForString("Meteroi shell>");			// program
+                if (f == null)
+                    break;
+                Console.WriteLine(tn.VirtualScreen.Hardcopy().TrimEnd());
+                tn.VirtualScreen.CleanScreen(); 
+                tn.SendResponse("y -1000", true);		// send Shell command
+                f = tn.WaitForString("Meteroi shell>");			// program
+                if (f == null)
+                    break;
+                Console.WriteLine(tn.VirtualScreen.Hardcopy().TrimEnd());
+                tn.VirtualScreen.CleanScreen(); 
+                tn.SendResponse("y 1000", true);		// send Shell command
+                f = tn.WaitForString("Meteroi shell>");			// program
+                if (f == null)
+                    break;
+                Console.WriteLine(tn.VirtualScreen.Hardcopy().TrimEnd());
                 if (tn.WaitForChangedScreen())
                     Console.WriteLine(tn.VirtualScreen.Hardcopy().TrimEnd());
 
