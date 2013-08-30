@@ -4,6 +4,8 @@ using System.Text;
 using Telnet;
 using Meteroi;
 using System.Text.RegularExpressions;
+using System.Collections;
+using System.Threading;
 
 namespace Meteroi
 {
@@ -61,28 +63,50 @@ namespace Meteroi
             }
             return shell.VirtualScreen.Hardcopy().TrimEnd();
         }
-
-                 
-
         ~broad()
         { 
             
         }
     }
 
+    class command
+    { 
+        
+    }
+
     class PCAS
     {
-        static broad b;
+        static broad b = null;
+        static Queue command = new Queue();
+
+        static void command_thread()
+        {
+            while (true)
+            {
+                command.Dequeue();
+                Console.WriteLine("do a command\n");
+            }
+        }
+
         static void Main(string[] args)
         {
-            b = new broad("10.235.6.197", "lophilo", "lab123", "~/test/thermal");
-            b.send_command_get_response("x 100");
-            b.send_command_get_response("x -100");
+            connect("10.235.6.197", "lophilo", "lab123");
+            Thread th = new Thread(command_thread);
+            th.Start();
+
             while (true)
             {
                 Console.WriteLine(get_box_temperature());
                 Console.WriteLine(get_box_moisture());
             }
+        }
+        public static bool connect(string broad_address, string login_name, string login_pwd)
+        {
+            b = new broad(broad_address, login_name, login_pwd, "~/test/thermal");
+            if (b.is_connect())
+                return true;
+            else
+                return false;
         }
 //shell_cmd_func_t shell_cmd_func_list[] = {
 //    {"help",      "Print Help Manual",                 cli_help},
@@ -103,7 +127,6 @@ namespace Meteroi
 //    {"ut",        "Unit test of the system",           unit_test},
 //    {NULL, NULL, NULL}
 //};
-
         public static float get_box_temperature()
         {
             string regexStr = @"[-+]?\b(?:[0-9]*\.)?[0-9]+\b";
@@ -146,29 +169,63 @@ namespace Meteroi
         }
         public void set_target_temperature(float target)
         {
+            string com = "tempt " + target.ToString();
+            b.send_command_get_response(com);
             return;
         }
         public void set_target_moisture(float target)
         {
+            string com = "moistt " + target.ToString();
+            b.send_command_get_response(com);
             return;
         }
-
         public void microscope_x(int x)
         {
+            string com = "x " + x.ToString();
+            b.send_command_get_response(com);
             return;
         }
         public void micoscope_y(int y)
         {
+            string com = "y " + y.ToString();
+            b.send_command_get_response(com);
             return;
         }
         public void micoscope_z(int z)
         {
+            string com = "z " + z.ToString();
+            b.send_command_get_response(com);
             return;
         }
-
         public void move_to_sample(uint i)
         {
-        
+            string com = "move " + i.ToString();
+            b.send_command_get_response(com);
+            return;
+        }
+        public void syringe_plus(uint i)
+        {
+            string com = "syf " + i.ToString();
+            b.send_command_get_response(com);
+            return;
+        }
+        public void syringe_minus(uint i)
+        {
+            string com = "syb " + i.ToString();
+            b.send_command_get_response(com);
+            return;
+        }
+        public void set_led(uint pwm)
+        {
+            string com = "led " + pwm.ToString();
+            b.send_command_get_response(com);
+            return;
+        }
+        public void set_ref(uint i)
+        {
+            string com = "ref " + i.ToString();
+            b.send_command_get_response(com);
+            return;
         }
     }
 

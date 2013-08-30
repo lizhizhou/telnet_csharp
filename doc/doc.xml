@@ -12,10 +12,15 @@
             </p>
             </summary>
         </member>
-        <member name="M:Telnet.Demo.TerminalDemo.DemoMSTelnetServer(System.String[])">
+        <member name="M:Telnet.Demo.TerminalDemo.Main(System.String[])">
             <summary>
             The main entry point for the application.
             Can be used to test the programm and run it from command line.
+            </summary>
+        </member>
+        <member name="M:Telnet.Demo.TerminalDemo.DemoMSTelnetServer(System.String[])">
+            <summary>
+            Demo for a MS Telnet server
             </summary>
         </member>
         <member name="M:Telnet.Demo.TerminalDemo.DemoRH73TelnetServer(System.String[])">
@@ -26,334 +31,6 @@
         <member name="M:Telnet.Demo.TerminalDemo.DemoRT311Router(System.String[])">
             <summary>
             Demo for a RT311 Router
-            </summary>
-        </member>
-        <member name="T:Telnet.VirtualScreen">
-            <summary>
-            Implements a simple "screen". This is used by telnet.
-            <p>
-            The x (rows) and y (columns) values may have an offset. If the offset
-            is 0/0 the left upper corner is [0,0], or 0-based. With an offset of 1/1
-            the left upper corner is [1,1], or 1-based.
-            </p>
-            </summary>
-            <remarks>
-            The class is not thread safe (e.g. search in buffer and modification
-            of buffer must not happen. It is duty of the calling class to guarantee this.
-            </remarks>
-        </member>
-        <member name="F:Telnet.VirtualScreen.SPACE">
-            <summary>
-            ASCII code for Space
-            </summary>
-        </member>
-        <member name="M:Telnet.VirtualScreen.CursorReset">
-            <summary>
-            Reset the cursor to upper left corner
-            </summary>
-        </member>
-        <member name="M:Telnet.VirtualScreen.CursorNextLine">
-            <summary>
-            Move the cursor to the beginning of the next line
-            </summary>
-        </member>
-        <member name="M:Telnet.VirtualScreen.CursorPosition(System.Int32,System.Int32)">
-            <summary>
-            Set the cursor (offset coordinates)
-            </summary>
-            <param name="x">X Position (lines) with offset considered</param>
-            <param name="y">Y Position (columns) with offset considered</param>
-            <remarks>
-            Use the method MoveCursorTo(x,y) when upscrolling should
-            be supported
-            </remarks>
-        </member>
-        <member name="M:Telnet.VirtualScreen.#ctor(System.Int32,System.Int32)">
-            <summary>
-            Constructor (offset 0/0)
-            </summary>
-            <param name="width">Screen's width</param>
-            <param name="height">Screen's height</param>
-        </member>
-        <member name="M:Telnet.VirtualScreen.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="width">Screen's width</param>
-            <param name="height">Screen's height</param>
-            <param name="xOffset">Screen coordinates are 0,1 .. based</param>
-            <param name="yOffset">Screen coordinates are 0,1 .. based</param>
-        </member>
-        <member name="M:Telnet.VirtualScreen.CleanScreen">
-            <summary>
-            Clean the screen and reset cursor.
-            </summary>
-            <remarks>
-            Changes the output-flag and scrolledUp attribute!
-            </remarks>
-        </member>
-        <member name="M:Telnet.VirtualScreen.CleanScreen(System.Int32,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Cleans a screen area, all values are
-            considering any offset
-            </summary>
-            <remarks>
-            - Changes the output-flag!
-            - Visible area is considered
-            </remarks>
-            <param name="xstart">upper left corner (included)</param>
-            <param name="ystart">upper left corner (included)</param>
-            <param name="xend">lower right corner (included)</param>
-            <param name="yend">lower right corner (included)</param>
-        </member>
-        <member name="M:Telnet.VirtualScreen.CleanLine(System.Int32,System.Int32)">
-            <summary>
-            Clean the current line
-            </summary>
-            <remarks>
-            - Changes the output-flag! <br/>
-            - Visible area is considered
-            </remarks>
-            <param name="xStart">X with offset considered</param>
-            <param name="xEnd">X with offset considered</param>
-        </member>
-        <member name="M:Telnet.VirtualScreen.CleanToCursor">
-            <summary>
-            Clean screen including the cursor position
-            </summary>
-            - Changes the output-flag! <br/>
-            - Visible area is considered
-        </member>
-        <member name="M:Telnet.VirtualScreen.CleanFromCursor">
-            <summary>
-            Clean screen including the cursor position
-            </summary>
-            - Changes the output-flag! <br/>
-            - Visible area is considered
-        </member>
-        <member name="M:Telnet.VirtualScreen.ScrollUp(System.Int32)">
-            <summary>
-            Scrolls up about n lines.
-            </summary>
-            <param name="lines"></param>
-            <remarks>
-            Changes the output-flag! <br/>
-            TODO: Do we have to change the coordinates offset?
-            Is line 5 after 2 lines scrolling now line 3 or still 5?
-            </remarks>
-            <returns>number of lines scrolled</returns>
-            
-        </member>
-        <member name="M:Telnet.VirtualScreen.WriteByte(System.Byte)">
-            <summary>
-            Write a byte to the screen, and set new cursor position.
-            </summary>
-            <remarks>
-            Changes the output-flag!
-            </remarks>
-            <param name="writeByte">Output byte</param>
-            <returns>True if byte has been written</returns>
-        </member>
-        <member name="M:Telnet.VirtualScreen.WriteByte(System.Byte[])">
-            <summary>
-            Write a byte to the screen, and set new cursor position.
-            </summary>
-            <remarks>
-            Changes the output-flag!
-            </remarks>
-            <param name="writeBytes">Output bytes</param>
-            <returns>True if byte has been written</returns>
-        </member>
-        <member name="M:Telnet.VirtualScreen.WriteByte(System.Byte,System.Boolean)">
-            <summary>
-            Write a byte to the screen.
-            </summary>
-            <remarks>
-            Changes the output-flag!
-            </remarks>
-            <param name="writeByte">Output byte</param>
-            <param name="moveCursor">Move the cursor or not</param>
-            <returns>True if byte has been written</returns>
-        </member>
-        <member name="M:Telnet.VirtualScreen.WriteLine(System.String)">
-            <summary>
-            Write a string to the screen, and set new cursor position.
-            </summary>
-            <remarks>
-            Changes the output-flag!
-            </remarks>
-            <param name="s">Output string</param>
-            <returns>True if byte has been written</returns>
-        </member>
-        <member name="M:Telnet.VirtualScreen.Write(System.String)">
-            <summary>
-            Write a string to the screen, and set new cursor position.
-            </summary>
-            <remarks>
-            Changes the output-flag!
-            </remarks>
-            <param name="s">Output string</param>
-            <returns>True if string has been written</returns>
-        </member>
-        <member name="M:Telnet.VirtualScreen.Write(System.Char)">
-            <summary>
-            Write a char to the screen, and set new cursor position.
-            </summary>
-            <remarks>
-            Changes the output-flag!
-            </remarks>
-            <param name="c">Output char</param>
-            <returns>True if char has been written</returns>
-        </member>
-        <member name="M:Telnet.VirtualScreen.MoveCursor(System.Int32)">
-            <summary>
-            Move cursor +/- positions forward.
-            Scrolls up if necessary.
-            </summary>
-            <param name="positions">Positions to move (+ forward / - backwards)</param>
-            <remarks>
-            Changes the scrolledUp attribute!
-            </remarks>
-        </member>
-        <member name="M:Telnet.VirtualScreen.MoveCursorVertical(System.Int32)">
-            <summary>
-            Move the cursor n rows down (+) or up(-)
-            </summary>
-            <param name="lines">Number of rows up(-) or down(+)</param>
-            <remarks>
-            Changes the scrolledUp attribute!
-            </remarks>
-        </member>
-        <member name="M:Telnet.VirtualScreen.MoveCursorTo(System.Int32,System.Int32)">
-            <summary>
-            Move cursor to a position considering 
-            scrolling up / lines breaks
-            </summary>
-            <param name="xPos">X Position considering offset</param>
-            <param name="yPos">Y Position considering offset</param>
-            <returns>true if cursor could be moved</returns>
-            <remarks>
-            Just to set a cursor position the attributes CursorX / CursorY
-            could be used. This here features scrolling.
-            </remarks>
-            <remarks>
-            Changes the scrolledUp attribute!
-            </remarks>
-        </member>
-        <member name="M:Telnet.VirtualScreen.Dispose">
-            <summary>
-            Clean everything up
-            </summary>
-        </member>
-        <member name="M:Telnet.VirtualScreen.GetLine(System.Int32)">
-            <summary>
-            Get a line as string
-            </summary>
-            <param name="yPosition"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Telnet.VirtualScreen.ToString">
-            <summary>
-            Class info
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Telnet.VirtualScreen.Hardcopy">
-            <summary>
-            Return the values as string
-            </summary>
-            <returns>Screen buffer as string including NLs (newlines)</returns>
-        </member>
-        <member name="M:Telnet.VirtualScreen.Hardcopy(System.Boolean)">
-            <summary>
-            Return the values as string
-            </summary>
-            <param name="lowercase">true return as lower case</param>
-            <returns>Screen buffer as string including NLs (newlines)</returns>
-        </member>
-        <member name="M:Telnet.VirtualScreen.FindOnScreen(System.String,System.Boolean)">
-            <summary>
-            Find a string on the screen
-            </summary>
-            <param name="findString">String to find</param>
-            <param name="caseSensitive">true for case sensitive search</param>
-            <returns>string found</returns>
-        </member>
-        <member name="M:Telnet.VirtualScreen.FindRegExOnScreen(System.String)">
-            <summary>
-            Find a regular expression on the screen
-            </summary>
-            <param name="regExp">Regular expression to find</param>
-            <returns>string found</returns>
-        </member>
-        <member name="M:Telnet.VirtualScreen.FindRegExOnScreen(System.String,System.Boolean)">
-            <summary>
-            Find a regular expression on the screen
-            </summary>
-            <param name="regExp">Regular expression to find</param>
-            <param name="caseSensitive">true for case sensitive search</param>
-            <returns>string found</returns>
-        </member>
-        <member name="M:Telnet.VirtualScreen.FindRegExOnScreen(System.Text.RegularExpressions.Regex)">
-            <summary>
-            Find a regular expression on the screen
-            </summary>
-            <param name="regExp">Regular expression to find</param>
-            <returns>Mathc object or null</returns>
-        </member>
-        <member name="P:Telnet.VirtualScreen.Width">
-            <summary>
-            window size 
-            </summary>
-        </member>
-        <member name="P:Telnet.VirtualScreen.Height">
-            <summary>
-            Window height
-            </summary>
-        </member>
-        <member name="P:Telnet.VirtualScreen.CursorX">
-            <summary>
-            Cursor position with offset considered
-            </summary>
-        </member>
-        <member name="P:Telnet.VirtualScreen.CursorY">
-            <summary>
-            Cursor position with offset considered
-            </summary>
-        </member>
-        <member name="P:Telnet.VirtualScreen.CursorXLeft">
-            <summary>
-            X Offset 
-            </summary>
-        </member>
-        <member name="P:Telnet.VirtualScreen.CursorXRight">
-            <summary>
-            X max value 
-            </summary>
-        </member>
-        <member name="P:Telnet.VirtualScreen.CursorYMax">
-            <summary>
-            Y max value 
-            </summary>
-        </member>
-        <member name="P:Telnet.VirtualScreen.CursorYMin">
-            <summary>
-            Y max value 
-            </summary>
-        </member>
-        <member name="P:Telnet.VirtualScreen.CursorX0">
-            <summary>
-            0-based coordinates for cursor, internally used.
-            </summary>
-        </member>
-        <member name="P:Telnet.VirtualScreen.CursorY0">
-            <summary>
-            0-based coordinates for cursor, internally used
-            </summary>
-        </member>
-        <member name="P:Telnet.VirtualScreen.ChangedScreen">
-            <summary>
-            Changed screen buffer ?
             </summary>
         </member>
         <member name="T:Telnet.Terminal">
@@ -809,6 +486,334 @@
             Constructor
             </summary>
             <param name="message">Exception's message</param>
+        </member>
+        <member name="T:Telnet.VirtualScreen">
+            <summary>
+            Implements a simple "screen". This is used by telnet.
+            <p>
+            The x (rows) and y (columns) values may have an offset. If the offset
+            is 0/0 the left upper corner is [0,0], or 0-based. With an offset of 1/1
+            the left upper corner is [1,1], or 1-based.
+            </p>
+            </summary>
+            <remarks>
+            The class is not thread safe (e.g. search in buffer and modification
+            of buffer must not happen. It is duty of the calling class to guarantee this.
+            </remarks>
+        </member>
+        <member name="F:Telnet.VirtualScreen.SPACE">
+            <summary>
+            ASCII code for Space
+            </summary>
+        </member>
+        <member name="M:Telnet.VirtualScreen.CursorReset">
+            <summary>
+            Reset the cursor to upper left corner
+            </summary>
+        </member>
+        <member name="M:Telnet.VirtualScreen.CursorNextLine">
+            <summary>
+            Move the cursor to the beginning of the next line
+            </summary>
+        </member>
+        <member name="M:Telnet.VirtualScreen.CursorPosition(System.Int32,System.Int32)">
+            <summary>
+            Set the cursor (offset coordinates)
+            </summary>
+            <param name="x">X Position (lines) with offset considered</param>
+            <param name="y">Y Position (columns) with offset considered</param>
+            <remarks>
+            Use the method MoveCursorTo(x,y) when upscrolling should
+            be supported
+            </remarks>
+        </member>
+        <member name="M:Telnet.VirtualScreen.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Constructor (offset 0/0)
+            </summary>
+            <param name="width">Screen's width</param>
+            <param name="height">Screen's height</param>
+        </member>
+        <member name="M:Telnet.VirtualScreen.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="width">Screen's width</param>
+            <param name="height">Screen's height</param>
+            <param name="xOffset">Screen coordinates are 0,1 .. based</param>
+            <param name="yOffset">Screen coordinates are 0,1 .. based</param>
+        </member>
+        <member name="M:Telnet.VirtualScreen.CleanScreen">
+            <summary>
+            Clean the screen and reset cursor.
+            </summary>
+            <remarks>
+            Changes the output-flag and scrolledUp attribute!
+            </remarks>
+        </member>
+        <member name="M:Telnet.VirtualScreen.CleanScreen(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Cleans a screen area, all values are
+            considering any offset
+            </summary>
+            <remarks>
+            - Changes the output-flag!
+            - Visible area is considered
+            </remarks>
+            <param name="xstart">upper left corner (included)</param>
+            <param name="ystart">upper left corner (included)</param>
+            <param name="xend">lower right corner (included)</param>
+            <param name="yend">lower right corner (included)</param>
+        </member>
+        <member name="M:Telnet.VirtualScreen.CleanLine(System.Int32,System.Int32)">
+            <summary>
+            Clean the current line
+            </summary>
+            <remarks>
+            - Changes the output-flag! <br/>
+            - Visible area is considered
+            </remarks>
+            <param name="xStart">X with offset considered</param>
+            <param name="xEnd">X with offset considered</param>
+        </member>
+        <member name="M:Telnet.VirtualScreen.CleanToCursor">
+            <summary>
+            Clean screen including the cursor position
+            </summary>
+            - Changes the output-flag! <br/>
+            - Visible area is considered
+        </member>
+        <member name="M:Telnet.VirtualScreen.CleanFromCursor">
+            <summary>
+            Clean screen including the cursor position
+            </summary>
+            - Changes the output-flag! <br/>
+            - Visible area is considered
+        </member>
+        <member name="M:Telnet.VirtualScreen.ScrollUp(System.Int32)">
+            <summary>
+            Scrolls up about n lines.
+            </summary>
+            <param name="lines"></param>
+            <remarks>
+            Changes the output-flag! <br/>
+            TODO: Do we have to change the coordinates offset?
+            Is line 5 after 2 lines scrolling now line 3 or still 5?
+            </remarks>
+            <returns>number of lines scrolled</returns>
+            
+        </member>
+        <member name="M:Telnet.VirtualScreen.WriteByte(System.Byte)">
+            <summary>
+            Write a byte to the screen, and set new cursor position.
+            </summary>
+            <remarks>
+            Changes the output-flag!
+            </remarks>
+            <param name="writeByte">Output byte</param>
+            <returns>True if byte has been written</returns>
+        </member>
+        <member name="M:Telnet.VirtualScreen.WriteByte(System.Byte[])">
+            <summary>
+            Write a byte to the screen, and set new cursor position.
+            </summary>
+            <remarks>
+            Changes the output-flag!
+            </remarks>
+            <param name="writeBytes">Output bytes</param>
+            <returns>True if byte has been written</returns>
+        </member>
+        <member name="M:Telnet.VirtualScreen.WriteByte(System.Byte,System.Boolean)">
+            <summary>
+            Write a byte to the screen.
+            </summary>
+            <remarks>
+            Changes the output-flag!
+            </remarks>
+            <param name="writeByte">Output byte</param>
+            <param name="moveCursor">Move the cursor or not</param>
+            <returns>True if byte has been written</returns>
+        </member>
+        <member name="M:Telnet.VirtualScreen.WriteLine(System.String)">
+            <summary>
+            Write a string to the screen, and set new cursor position.
+            </summary>
+            <remarks>
+            Changes the output-flag!
+            </remarks>
+            <param name="s">Output string</param>
+            <returns>True if byte has been written</returns>
+        </member>
+        <member name="M:Telnet.VirtualScreen.Write(System.String)">
+            <summary>
+            Write a string to the screen, and set new cursor position.
+            </summary>
+            <remarks>
+            Changes the output-flag!
+            </remarks>
+            <param name="s">Output string</param>
+            <returns>True if string has been written</returns>
+        </member>
+        <member name="M:Telnet.VirtualScreen.Write(System.Char)">
+            <summary>
+            Write a char to the screen, and set new cursor position.
+            </summary>
+            <remarks>
+            Changes the output-flag!
+            </remarks>
+            <param name="c">Output char</param>
+            <returns>True if char has been written</returns>
+        </member>
+        <member name="M:Telnet.VirtualScreen.MoveCursor(System.Int32)">
+            <summary>
+            Move cursor +/- positions forward.
+            Scrolls up if necessary.
+            </summary>
+            <param name="positions">Positions to move (+ forward / - backwards)</param>
+            <remarks>
+            Changes the scrolledUp attribute!
+            </remarks>
+        </member>
+        <member name="M:Telnet.VirtualScreen.MoveCursorVertical(System.Int32)">
+            <summary>
+            Move the cursor n rows down (+) or up(-)
+            </summary>
+            <param name="lines">Number of rows up(-) or down(+)</param>
+            <remarks>
+            Changes the scrolledUp attribute!
+            </remarks>
+        </member>
+        <member name="M:Telnet.VirtualScreen.MoveCursorTo(System.Int32,System.Int32)">
+            <summary>
+            Move cursor to a position considering 
+            scrolling up / lines breaks
+            </summary>
+            <param name="xPos">X Position considering offset</param>
+            <param name="yPos">Y Position considering offset</param>
+            <returns>true if cursor could be moved</returns>
+            <remarks>
+            Just to set a cursor position the attributes CursorX / CursorY
+            could be used. This here features scrolling.
+            </remarks>
+            <remarks>
+            Changes the scrolledUp attribute!
+            </remarks>
+        </member>
+        <member name="M:Telnet.VirtualScreen.Dispose">
+            <summary>
+            Clean everything up
+            </summary>
+        </member>
+        <member name="M:Telnet.VirtualScreen.GetLine(System.Int32)">
+            <summary>
+            Get a line as string
+            </summary>
+            <param name="yPosition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Telnet.VirtualScreen.ToString">
+            <summary>
+            Class info
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Telnet.VirtualScreen.Hardcopy">
+            <summary>
+            Return the values as string
+            </summary>
+            <returns>Screen buffer as string including NLs (newlines)</returns>
+        </member>
+        <member name="M:Telnet.VirtualScreen.Hardcopy(System.Boolean)">
+            <summary>
+            Return the values as string
+            </summary>
+            <param name="lowercase">true return as lower case</param>
+            <returns>Screen buffer as string including NLs (newlines)</returns>
+        </member>
+        <member name="M:Telnet.VirtualScreen.FindOnScreen(System.String,System.Boolean)">
+            <summary>
+            Find a string on the screen
+            </summary>
+            <param name="findString">String to find</param>
+            <param name="caseSensitive">true for case sensitive search</param>
+            <returns>string found</returns>
+        </member>
+        <member name="M:Telnet.VirtualScreen.FindRegExOnScreen(System.String)">
+            <summary>
+            Find a regular expression on the screen
+            </summary>
+            <param name="regExp">Regular expression to find</param>
+            <returns>string found</returns>
+        </member>
+        <member name="M:Telnet.VirtualScreen.FindRegExOnScreen(System.String,System.Boolean)">
+            <summary>
+            Find a regular expression on the screen
+            </summary>
+            <param name="regExp">Regular expression to find</param>
+            <param name="caseSensitive">true for case sensitive search</param>
+            <returns>string found</returns>
+        </member>
+        <member name="M:Telnet.VirtualScreen.FindRegExOnScreen(System.Text.RegularExpressions.Regex)">
+            <summary>
+            Find a regular expression on the screen
+            </summary>
+            <param name="regExp">Regular expression to find</param>
+            <returns>Mathc object or null</returns>
+        </member>
+        <member name="P:Telnet.VirtualScreen.Width">
+            <summary>
+            window size 
+            </summary>
+        </member>
+        <member name="P:Telnet.VirtualScreen.Height">
+            <summary>
+            Window height
+            </summary>
+        </member>
+        <member name="P:Telnet.VirtualScreen.CursorX">
+            <summary>
+            Cursor position with offset considered
+            </summary>
+        </member>
+        <member name="P:Telnet.VirtualScreen.CursorY">
+            <summary>
+            Cursor position with offset considered
+            </summary>
+        </member>
+        <member name="P:Telnet.VirtualScreen.CursorXLeft">
+            <summary>
+            X Offset 
+            </summary>
+        </member>
+        <member name="P:Telnet.VirtualScreen.CursorXRight">
+            <summary>
+            X max value 
+            </summary>
+        </member>
+        <member name="P:Telnet.VirtualScreen.CursorYMax">
+            <summary>
+            Y max value 
+            </summary>
+        </member>
+        <member name="P:Telnet.VirtualScreen.CursorYMin">
+            <summary>
+            Y max value 
+            </summary>
+        </member>
+        <member name="P:Telnet.VirtualScreen.CursorX0">
+            <summary>
+            0-based coordinates for cursor, internally used.
+            </summary>
+        </member>
+        <member name="P:Telnet.VirtualScreen.CursorY0">
+            <summary>
+            0-based coordinates for cursor, internally used
+            </summary>
+        </member>
+        <member name="P:Telnet.VirtualScreen.ChangedScreen">
+            <summary>
+            Changed screen buffer ?
+            </summary>
         </member>
         <member name="T:Telnet.Demo.VirtualScreenTest">
             <summary>

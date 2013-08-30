@@ -24,12 +24,12 @@ namespace Telnet.Demo
 		/// Can be used to test the programm and run it from command line.
 		/// </summary>
 		[STAThread]
-        //static void Main(string[] args) 
-        //{
-        //    // DemoMSTelnetServer(args);
-        //    DemoRH73TelnetServer(args);
-        //    // DemoRT311Router(args);
-        //}
+        static void Main(string[] args)
+        {
+            // DemoMSTelnetServer(args);
+            DemoRH73TelnetServer(args);
+            // DemoRT311Router(args);
+        }
 
 		/// <summary>
 		/// Demo for a MS Telnet server
